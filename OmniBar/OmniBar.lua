@@ -873,7 +873,7 @@ function OmniBar:AddSpellCast(event, sourceGUID, sourceName, sourceFlags, spellI
 	-- and if it is a shared cooldown make sure we don't overwrite
 	if  self.spellCasts[name] and
 		self.spellCasts[name][spellID] and
-		(customDuration or self.spellCasts[name][spellID].serverTime == serverTime)
+		self.spellCasts[name][spellID].serverTime == serverTime
 	then
 		return
 	end
