@@ -1414,15 +1414,17 @@ function OmniBar_AddIcon(self, info)
 	-- We couldn't find a frame to use
 	if (not icon) then return end
 
+	local now = GetTime()
+
 	icon.class = addon.Cooldowns[info.spellID].class
 	icon.sourceGUID = info.sourceGUID
 	icon.sourceName = info.ownerName or info.sourceName
 	icon.specID = info.specID and info.specID or self.specs[icon.sourceName]
 	icon.icon:SetTexture(addon.Cooldowns[info.spellID].icon)
 	icon.spellID = info.spellID
-	icon.timestamp = info.test and GetTime() or info.timestamp
+	icon.timestamp = info.test and now or info.timestamp
 	icon.duration = info.test and math.random(5,30) or info.duration
-	icon.added = GetTime()
+	icon.added = now
 
 	if icon.charges and info.charges and icon:IsVisible() then
 		local start, duration = icon.cooldown:GetCooldownTimes()
@@ -1474,7 +1476,7 @@ function OmniBar_AddIcon(self, info)
 
 	if (icon.timestamp) then
 		OmniBar_StartCooldown(self, icon, icon.timestamp)
-		if (GetTime() == icon.timestamp) then OmniBar_StartAnimation(self, icon) end
+		if ((now - icon.timestamp) < .02) then OmniBar_StartAnimation(self, icon) end
 	end
 
 	return icon
