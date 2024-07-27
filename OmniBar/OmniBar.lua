@@ -396,7 +396,7 @@ end
 
 -- create a lookup table since CombatLogGetCurrentEventInfo() returns 0 for spellId
 local SPELL_ID_BY_NAME
-if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 	SPELL_ID_BY_NAME = {}
 	for id, value in pairs(addon.Cooldowns) do
 		if (not value.parent) then SPELL_ID_BY_NAME[GetSpellInfo(id)] = id end

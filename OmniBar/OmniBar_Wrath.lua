@@ -3625,11 +3625,11 @@ addon.Cooldowns = {
 
     --]]
 
-    [50516] = { duration = 20, class = "DRUID", adjust = -3 }, -- Typhoon (Rank 1)
-        [53223] = { parent = 50516 }, -- Typhoon (Rank 2)
-        [53225] = { parent = 50516 }, -- Typhoon (Rank 3)
-        [53226] = { parent = 50516 }, -- Typhoon (Rank 4)
-        [61384] = { parent = 50516 }, -- Typhoon (Rank 5)
+    [61391] = { duration = 20, class = "DRUID", adjust = -3, icon = "Interface\\ICONS\\ability_druid_typhoon" }, -- Typhoon (Rank 1)
+        [61390] = { parent = 61391 }, -- Typhoon (Rank 2)
+        [61388] = { parent = 61391 }, -- Typhoon (Rank 3)
+        [61387] = { parent = 61391 }, -- Typhoon (Rank 4)
+        [53227] = { parent = 61391 }, -- Typhoon (Rank 5)
 
     [61336] = { duration = 180, class = "DRUID" }, -- Survival Instincts
 
