@@ -181,10 +181,13 @@ local function GetSpells()
 					if string.len(spellName) > 25 then
 						spellName = string.sub(spellName, 0, 22) .. "..."
 					end
-					local s = Spell:CreateFromSpellID(spellID)
+					--[[local s = Spell:CreateFromSpellID(spellID)
 					s:ContinueOnSpellLoad(function()
 						descriptions[spellID] = s:GetSpellDescription()
-					end)
+					end)]]
+
+					-- Tsoukie: Avoid 700+ mixin tables from above.
+					descriptions[spellID] = GetSpellDescription(spellID)
 
 					spells[CLASS_SORT_ORDER_WITH_GENERAL[i]].args[tostring(spellID)] = {
 						type = "toggle",
