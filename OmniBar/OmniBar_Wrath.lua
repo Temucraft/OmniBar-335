@@ -1,3 +1,7 @@
+if ( WOW_PROJECT_ID_RCE ~= WOW_PROJECT_WRATH_CLASSIC ) then
+	return
+end
+
 local addonName, addon = ...
 
 addon.MAX_ARENA_SIZE = 5

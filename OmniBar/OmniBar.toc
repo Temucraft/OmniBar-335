@@ -1,7 +1,7 @@
 ## Interface: 30300
 ## Title: OmniBar
 ## Notes: Tracks enemy cooldowns
-## Version: 1.0.7
+## Version: 1.0.10
 ## Author: Jordon, Tsoukie
 ## SavedVariables: OmniBarDB
 ## RequiredDeps: !!!ClassicAPI
@@ -24,5 +24,7 @@ Libs\LibDeflate\LibDeflate.lua
 Locales\Locales.xml
 OmniBar.xml
 OmniBar_Wrath.lua
+OmniBar_TBC.lua
+OmniBar_Vanilla.lua
 OmniBar.lua
 Options.lua

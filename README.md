@@ -1,4 +1,4 @@
-# OmniBar for WotLK (3.3.5a - Private Server)
+# OmniBar for 3.3.5a client (WotLK, TBC, Vanilla)
 **`OmniBar is an extremely lightweight addon that tracks enemy cooldowns.`**
 
 <img src="http://i.imgur.com/p9DjSOh.png" width="50%">

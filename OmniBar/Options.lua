@@ -151,18 +151,16 @@ local function GetSpells()
 	}
 	local descriptions = {}
 	for i = 0, MAX_CLASSES do
-
 		spells[CLASS_SORT_ORDER_WITH_GENERAL[i]] = {
 			name = LOCALIZED_CLASS_NAMES_MALE_WITH_GENERAL[CLASS_SORT_ORDER_WITH_GENERAL[i]],
 			type = "group",
 			args = {},
-			--[[
-			Tsoukie: This causes an error on 3.3.5a, due to the info values being different.
 			hidden = function(info)
-				local bar = info[#info-2]
-				local class = info[#info]
-				return next(info.options.args.bars.args[bar].args.spells.args[class].args) == nil
-			end,]]
+				local total = #info
+				local bar = info.options.args.bars.args[info[total-2]]
+				local class = info[total]
+				return bar and next(bar.args.spells.args[class].args) == nil
+			end,
 			icon = "Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes",
 			iconCoords = CLASS_ICON_TCOORDS[CLASS_SORT_ORDER_WITH_GENERAL[i]]
 		}
@@ -186,7 +184,6 @@ local function GetSpells()
 						descriptions[spellID] = s:GetSpellDescription()
 					end)]]
 
-					-- Tsoukie: Avoid 700+ mixin tables from above.
 					descriptions[spellID] = GetSpellDescription(spellID)
 
 					spells[CLASS_SORT_ORDER_WITH_GENERAL[i]].args[tostring(spellID)] = {
@@ -770,23 +767,23 @@ function OmniBar:AddBarToOptions(key, refresh)
 		order = 3,
 	}
 
-	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
-		self.options.args.bars.args[key].args.settings.args.highlightFocus = {
-			name = L["Highlight Focus"],
-			desc = L["Draw a border around your focus"],
-			width = "normal",
-			type = "toggle",
-			order = 10,
-			disabled = function()
-				return self.db.profile.bars[key].trackUnit ~= "ENEMY"
-			end,
-			set = function(info, state)
-				local option = info[#info]
-				self.db.profile.bars[key][option] = state
-				self:Refresh(true)
-			end,
-		}
+	self.options.args.bars.args[key].args.settings.args.highlightFocus = {
+		name = L["Highlight Focus"],
+		desc = L["Draw a border around your focus"],
+		width = "normal",
+		type = "toggle",
+		order = 10,
+		disabled = function()
+			return self.db.profile.bars[key].trackUnit ~= "ENEMY"
+		end,
+		set = function(info, state)
+			local option = info[#info]
+			self.db.profile.bars[key][option] = state
+			self:Refresh(true)
+		end,
+	}
 
+	if WOW_PROJECT_ID_RCE ~= WOW_PROJECT_CLASSIC then
 		self.options.args.bars.args[key].args.visibility.args.arena = {
 			name = L["Show in Arena"],
 			desc = L["Show the icons in arena"],
