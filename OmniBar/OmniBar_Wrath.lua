@@ -415,10 +415,14 @@ addon.Cooldowns = {
 
     --]]
 
-    [47540] = { duration = 12, class = "PRIEST", adjust = -4 }, -- Penance (Rank 1)
-        [53005] = { parent = 47540 }, -- Penance (Rank 2)
-        [53006] = { parent = 47540 }, -- Penance (Rank 3)
-        [53007] = { parent = 47540 }, -- Penance (Rank 4)
+    [47750] = { duration = 12, class = "PRIEST", adjust = -4, eventThrottle = true }, -- Penance (Rank 1)
+        [52983] = { parent = 47750 }, -- Penance (Rank 2)
+        [52984] = { parent = 47750 }, -- Penance (Rank 3)
+        [52985] = { parent = 47750 }, -- Penance (Rank 4)
+        [47666] = { parent = 47750 }, -- Penance Hostile (Rank 1)
+        [52998] = { parent = 47750 }, -- Penance Hostile (Rank 2)
+        [52999] = { parent = 47750 }, -- Penance Hostile (Rank 3)
+        [53000] = { parent = 47750 }, -- Penance Hostile (Rank 4)
 
     --[[ Dispersion Modifiers
 

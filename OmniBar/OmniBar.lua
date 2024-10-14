@@ -871,9 +871,9 @@ function OmniBar:AddSpellCast(event, sourceGUID, sourceName, sourceFlags, spellI
 
 	-- make sure we aren't adding a duplicate,
 	-- and if it is a shared cooldown make sure we don't overwrite
-	if  self.spellCasts[name] and
+	if self.spellCasts[name] and
 		self.spellCasts[name][spellID] and
-		((customDuration and (self.spellCasts[name][spellID].expires > now)) or self.spellCasts[name][spellID].serverTime == serverTime)
+		(self.spellCasts[name][spellID].serverTime == serverTime or ((customDuration or addon.Cooldowns[spellID].eventThrottle) and self.spellCasts[name][spellID].expires > (now + (customDuration or 0))))
 	then
 		return
 	end
@@ -883,16 +883,6 @@ function OmniBar:AddSpellCast(event, sourceGUID, sourceName, sourceFlags, spellI
 
 	local duration = customDuration or GetCooldownDuration(addon.Cooldowns[spellID])
 	local charges = addon.Cooldowns[spellID].charges
-
-	-- child doesn't have custom charges, use parent
-	if (not charges) then
-		charges = addon.Cooldowns[spellID].charges
-	end
-
-	-- child doesn't have a custom duration, use parent
-	if (not duration) then
-		duration = GetCooldownDuration(addon.Cooldowns[spellID])
-	end
 
 	-- combat log is clamped in classic, so make sure our raid members detect the cast
 	-- if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE and isLocal then
