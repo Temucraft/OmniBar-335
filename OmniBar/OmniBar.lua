@@ -1378,7 +1378,7 @@ function OmniBar_AddIcon(self, info)
 				end
 
 				-- if it's the same source, reuse the icon
-				if info.sourceGUID and IconIsUnit(self.active[i].sourceGUID, info.sourceGUID) then
+				if info.sourceGUID and (self.active[i].sourceName == info.ownerName or IconIsUnit(self.active[i].sourceGUID, info.sourceGUID)) then
 					duplicate = nil
 					icon = self.active[i]
 					break
