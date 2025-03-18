@@ -1264,6 +1264,11 @@ function OmniBar_CooldownFinish(self, force)
 
 	local bar = icon:GetParent():GetParent()
 
+	-- Halt reverse finish timer, if main CD preemptively hidden.
+	if self.___CooldownReverseFinish:GetProgress() < 1 then
+		self.___CooldownReverseFinish:Stop()
+	end
+
 	OmniBar_StopAnimation(self, icon)
 
 	if (not bar.settings.showUnused) then
@@ -1352,10 +1357,14 @@ end
 
 function OmniBar_StartCooldown(self, icon, start)
 	icon.cooldown:SetCooldown(start, icon.duration)
-	icon.cooldown_hider:SetCooldown(start, icon.duration - 1)
 	icon.cooldown.finish = start + icon.duration
 	icon.cooldown:SetSwipeColor(0, 0, 0, self.settings.swipeAlpha or 0.65)
 	icon:SetAlpha(1)
+
+	-- Reverse CD Finish (Hide)
+	icon.cooldown.___CooldownReverseFinish:Stop()
+	icon.cooldown.___CooldownReverseFinish.duration:SetDuration((icon.duration + .1) - (GetTime() - start))
+	icon.cooldown.___CooldownReverseFinish:Play()
 end
 
 function OmniBar_AddIcon(self, info)

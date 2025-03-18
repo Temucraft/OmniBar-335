@@ -164,18 +164,21 @@
 				<SwipeTexture>
 					<Color r="1" g="1" b="1" a="0.8"/>
 				</SwipeTexture>
-			</Cooldown>
-			<Cooldown inherits="CooldownFrameTemplate" parentKey="cooldown_hider" alpha="0" drawBling="false" drawEdge="false">
-				<Size x="36" y="36"/>
-				<Anchors>
-					<Anchor point="CENTER" x="0" y="-1"/>
-				</Anchors>
-				<SwipeTexture>
-					<Color r="1" g="1" b="1" a="0.8"/>
-				</SwipeTexture>
 				<Scripts>
 					<OnHide function="OmniBar_CooldownFinish"/>
 				</Scripts>
+				<Animations>
+					<AnimationGroup parentKey="___CooldownReverseFinish">
+						<Animation parentKey="duration"/>
+						<Scripts>
+							<OnFinished>
+								local parent = self:GetParent()
+								parent:SetCooldown(0, 0)
+								parent:Hide()
+							</OnFinished>
+						</Scripts>
+					</AnimationGroup>
+				</Animations>
 			</Cooldown>
 		</Frames>
 		<Scripts>
@@ -187,8 +190,6 @@
 
 				self.newitemglowAnim = self.NewItemTexture.anim
 				self.flashAnim = self.flash.anim
-
-				self.cooldown_hider.noCooldownCount = true
 			</OnLoad>
 			<OnEnter>
 				local bar = self:GetParent():GetParent()

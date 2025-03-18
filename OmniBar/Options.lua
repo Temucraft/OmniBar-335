@@ -63,7 +63,7 @@ local points = {
 	BOTTOMRIGHT = L["Bottom Right"],
 }
 
-local tooltip = CreateFrame("GameTooltip", "OmniBarTooltip", UIParent, "GameTooltipTemplate")
+--[[local tooltip = CreateFrame("GameTooltip", "OmniBarTooltip", UIParent, "GameTooltipTemplate")
 local function GetSpellTooltipText(spellID)
 	tooltip:SetOwner(UIParent, "ANCHOR_NONE")
 	tooltip:SetSpellByID(spellID)
@@ -73,7 +73,7 @@ local function GetSpellTooltipText(spellID)
 	if not line then return end
 	tooltip:Hide()
 	return line
-end
+end]]
 
 local function IsSpellEnabled(info)
 	local spellID = tonumber(info[#info])
