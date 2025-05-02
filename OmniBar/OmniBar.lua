@@ -113,7 +113,7 @@ local DEFAULTS = {
 	growUpward           = true,
 	highlightFocus       = false,
 	highlightTarget      = true,
-	iconSorting		     = "TIME_ADDED",
+	iconSorting          = "TIME_ADDED",
 	locked               = false,
 	maxIcons             = 32,
 	multiple             = true,
@@ -476,6 +476,7 @@ function OmniBar:Initialize(key, name)
 	f.BASE_ICON_SIZE = BASE_ICON_SIZE
 	f.numIcons = 0
 	f:RegisterForDrag("LeftButton")
+	f.MAPoint = true -- MoveAnything: Unanchoring Fix
 
 	f.anchor.text:SetText(f.settings.name)
 
@@ -1136,7 +1137,6 @@ function OmniBar_LoadPosition(self)
 		self:SetPoint(point, relativeTo, relativePoint, xOfs, yOfs)
 		if (not self.settings.position.frameStrata) then self.settings.position.frameStrata = "MEDIUM" end
 		self:SetFrameStrata(self.settings.position.frameStrata)
-		self.MAPoint = true -- MoveAnything: Unanchoring Fix
 	else
 		self:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 		OmniBar_SavePosition(self)
