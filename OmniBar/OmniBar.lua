@@ -27,6 +27,7 @@ local GetSpecializationInfo = GetSpecializationInfo
 local GetSpecializationInfoByID = GetSpecializationInfoByID
 local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
 local GetSpellInfo = GetSpellInfo
+local GetSpellTexture = GetSpellTexture
 local GetTime = GetTime
 local GetUnitName = GetUnitName
 local GetZonePVPInfo = GetZonePVPInfo
@@ -112,6 +113,7 @@ local DEFAULTS = {
 	growUpward           = true,
 	highlightFocus       = false,
 	highlightTarget      = true,
+	iconSorting		     = "TIME_ADDED",
 	locked               = false,
 	maxIcons             = 32,
 	multiple             = true,
@@ -160,47 +162,33 @@ function OmniBar:OnInitialize()
 		self:AddSpellCast(event, sourceGUID, sourceName, sourceFlags, spellID, serverTime)
 	end)
 
-	-- Check if update available
-	self.version = { string = GetAddOnMetadata(addonName, "Version") or "" }
-	self.version.major, self.version.minor = self.version.string:match("(%d+)%.(%d+)")
-
-	-- dev version
-	if self.version.string:match("project%-version") then
-		self.version.string = "dev"
-		self.version.major = 999
-		self.version.minor = 999
-		self.version.dev = true
+	-- Set version
+	local version, major, minor = GetAddOnMetadata(addonName, "Version") or "", 0, 0
+	if version:sub(1, 1) == "@" then
+		version = "Development"
+	else
+		major, minor = version:match("(%d+)%.?(%d*)")
 	end
-
-	self.version.major = tonumber(self.version.major)
-	self.version.minor = tonumber(self.version.minor)
-
-	self:RegisterComm("OmniBarVersion", function(_, payload, _, sender)
-		self.sender = sender
-		if (not payload) or type(payload) ~= "string" then return end
-		local major, minor = payload:match("(%d+)%.(%d+)")
-		major = tonumber(major)
-		minor = tonumber(minor)
-		if (not major) or (not minor) then return end
-		if major < self.version.major then return end
-		if major == self.version.major and minor <= self.version.minor then return end
-		if (not self.outdatedSender) or self.outdatedSender == sender then
-			self.outdatedSender = sender
-			return
+	self.version = setmetatable({
+		string = version,
+		major = tonumber(major),
+		minor = tonumber(minor) or 0,
+	}, {
+		__tostring = function()
+			return version
 		end
-		if self.nextWarn and self.nextWarn > GetTime() then return end
-		self.nextWarn = GetTime() + 1800
-		self:Print(L.UPDATE_AVAILABLE)
-		self.outdatedSender = nil
-	end)
+	})
 
-	self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "SendVersion")
-
-	C_Timer_After(10, function()
-		self:SendVersion()
-		if IsInGuild() then self:SendVersion("GUILD") end
-		self:SendVersion("YELL")
-	end)
+	-- Check if update available
+	if self.version.major > 0 then
+		self:RegisterComm("OmniBarVersion", "ReceiveVersion")
+		self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "SendVersion")
+		C_Timer_After(10, function()
+			self:SendVersion()
+			if IsInGuild() then self:SendVersion("GUILD") end
+			--self:SendVersion("YELL")
+		end)
+	end
 
 	-- Remove invalid custom cooldowns
 	for k,v in pairs(self.db.global.cooldowns) do
@@ -231,8 +219,27 @@ local function GetDefaultCommChannel()
 	end
 end
 
+function OmniBar:ReceiveVersion(_, payload, _, sender)
+	self.sender = sender
+	if (not payload) or type(payload) ~= "string" then return end
+	local major, minor = payload:match("(%d+)%.?(%d*)")
+	major = tonumber(major)
+	minor = tonumber(minor) or 0
+	if (not major) or (not minor) then return end
+	if major < self.version.major then return end
+	if major == self.version.major and minor <= self.version.minor then return end
+	--[[if (not self.outdatedSender) or self.outdatedSender == sender then
+		self.outdatedSender = sender
+		return
+	end]]
+	if self.nextWarn and self.nextWarn > GetTime() then return end
+	self.nextWarn = GetTime() + 1800
+	self:Print(L.UPDATE_AVAILABLE)
+	--self.outdatedSender = nil
+end
+
 function OmniBar:SendVersion(distribution)
-	if (not self.version) or self.version.dev then return end
+	if (not self.version) or self.version.major == 0 then return end
 	self:SendCommMessage("OmniBarVersion", self.version.string, distribution or GetDefaultCommChannel())
 end
 
@@ -988,13 +995,19 @@ function OmniBar_OnEvent(self, event, ...)
 	elseif event == "ARENA_OPPONENT_UPDATE" then
 		if self.disabled or (not self.settings.showUnused) then return end
 
+		local unit, reason = ...
+
+		if reason == "cleared" then
+			wipe(self.detected)
+			wipe(self.spellCasts)
+			OmniBar_Refresh(self)
+		end
+
 		-- we get the info from ARENA_PREP_OPPONENT_SPECIALIZATIONS on retail
 		if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
 			OmniBar_OnEvent(self, "ARENA_PREP_OPPONENT_SPECIALIZATIONS")
 			return
 		end
-
-		local unit = ...
 
 		if (not unit) or (not UnitIsPlayer(unit)) then return end
 
@@ -1123,6 +1136,7 @@ function OmniBar_LoadPosition(self)
 		self:SetPoint(point, relativeTo, relativePoint, xOfs, yOfs)
 		if (not self.settings.position.frameStrata) then self.settings.position.frameStrata = "MEDIUM" end
 		self:SetFrameStrata(self.settings.position.frameStrata)
+		self.MAPoint = true -- MoveAnything: Unanchoring Fix
 	else
 		self:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 		OmniBar_SavePosition(self)
@@ -1424,6 +1438,7 @@ function OmniBar_AddIcon(self, info)
 	icon.timestamp = info.test and now or info.timestamp
 	icon.duration = info.test and math.random(5,30) or info.duration
 	icon.added = now
+	icon.expires = info.test and icon.timestamp + icon.duration or info.expires
 
 	if icon.charges and info.charges and icon:IsVisible() then
 		local start, duration = icon.cooldown:GetCooldownTimes()
@@ -1524,6 +1539,18 @@ function OmniBar_Test(self)
 	end
 end
 
+local function SortIconsByRemainingTime(self)
+	table.sort(self.active, function(a, b)
+		return a.expires == b.expires and a.spellID < b.spellID or a.expires < b.expires
+	end)
+end
+
+local function SortIconsByTimeAdded(self)
+	table.sort(self.active, function(a, b)
+		return a.added == b.added and a.spellID < b.spellID or a.added < b.added
+	end)
+end
+
 function OmniBar_Position(self)
 	local numActive = #self.active
 	if numActive == 0 then
@@ -1548,8 +1575,12 @@ function OmniBar_Position(self)
 			return CLASS_ORDER[aClass] < CLASS_ORDER[bClass]
 		end)
 	else
-		-- if we aren't showing unused, just sort by added time
-		table.sort(self.active, function(a, b) return a.added == b.added and a.spellID < b.spellID or a.added < b.added end)
+		-- if we aren't showing unused, sort active icons based on user preference: time remaining or time added
+		if self.settings.iconSorting == "TIME_REMAINING" then
+			SortIconsByRemainingTime(self)
+		else
+			SortIconsByTimeAdded(self)
+		end
 	end
 
 	local count, rows = 0, 1

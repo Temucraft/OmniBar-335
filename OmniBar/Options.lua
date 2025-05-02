@@ -411,6 +411,22 @@ function OmniBar:AddBarToOptions(key, refresh)
 						type = "description",
 						order = 19,
 					},
+					iconSorting = {
+						name = L["Sort Icons By:"],
+						desc = L["Choose the order in which icons are sorted."],
+						type = "select",
+						values = {
+							TIME_REMAINING = L["Time Remaining"],
+							TIME_ADDED = L["Time Added"],
+						},
+						set = function(info, state)
+							local option = info[#info]
+							self.db.profile.bars[key][option] = state
+							OmniBar_Position(_G[key])
+						end,
+						disabled = function() return self.db.profile.bars[key].showUnused end,
+						order = 20,
+					},
 					align = {
 						name = L["Alignment"],
 						desc = L["Set the alignment of the icons to the anchor"],
@@ -425,12 +441,12 @@ function OmniBar:AddBarToOptions(key, refresh)
 							self.db.profile.bars[key][option] = state
 							self:Refresh(true)
 						end,
-						order = 20,
+						order = 21,
 					},
 					lb5 = {
 						name = "",
 						type = "description",
-						order = 21,
+						order = 22,
 					},
 					size = {
 						name = L["Size"],
@@ -533,7 +549,6 @@ function OmniBar:AddBarToOptions(key, refresh)
 						step = 0.01,
 						order = 110,
 						width = "double",
-						disabled = true,
 					},
 					swipeAlphaDesc = {
 						name = L["Set the transparency of the swipe animation"] .. "\n",
@@ -1106,7 +1121,7 @@ function OmniBar:SetupOptions()
 			vers = {
 				order = 1,
 				type = "description",
-				name = "|cffffd700 "..L["Version"].."|r "..self.version.string..", |cffffd700Based on OmniBar|r v14.21\n",
+				name = "|cffffd700 "..L["Version"].."|r "..self.version.string..", |cffffd700Based on OmniBar|r v29\n",
 				cmdHidden = true
 			},
 			desc = {
