@@ -1,70 +1,73 @@
-# OmniBar for 3.3.5a client (WotLK, TBC, Vanilla)
-**`OmniBar is an extremely lightweight addon that tracks enemy cooldowns.`**
+<a><img src="https://gitlab.com/-/project/72272686/uploads/ee566284f38c79601b8858c1126d912c/intro.jpg" width="100%" /></a>
 
-<img src="http://i.imgur.com/p9DjSOh.png" width="50%">
+<br />
 
----
+# OmniBar
 
-### ⚠ Note: This version is not related or affiliated with the official retail/classic addon!
-### 📥 [Installation](#-installation-1)
-### 📋 [Report Issue](https://gitlab.com/Tsoukie/omnibar-3.3.5/-/issues)
-### 💬 [FAQ](#-faq-1)
-### ❤️ [Support & Credit](#%EF%B8%8F-support-credit-1)
+[**OmniBar**](#) is an essential addon that enhances your gameplay by providing a clear and organized display of cooldowns and important abilities. Perfect for PvP scenarios, it allows players to track enemy spell cooldowns. Its configurable options let you arrange cooldowns to suit your preferences, ensuring you can quickly identify critical moments during intense encounters. With this addon, you’ll gain a significant edge in awareness and strategy, making it a must-have for any serious player!
 
----
-### Features:
-- **Customizable Cooldowns:** _Select which cooldowns you wish to track._
-- **Multiple Bars:** _Create as many bars are you want!_
-- **Automatically Hide Icons:** _After the cooldown is complete it will automatically hide the icon(s)._
-- **Show Unused Icons:** _If you prefer to have icons remain visible._
-- **Track Multiple Players:** _If another player is detected using the same ability, a duplicate icon will be created and tracked separately._
-- **Glow Icons:** _A glow animation will be displayed around an icon when it is activated._
-- **Visual Tweaks:** _You can configure various visual tweaks such as size, border, glow, transparency, columns, and padding._
-- **Visibility:** _Choose to display OmniBar in arenas, battlegrounds, and world combat._
-- **Profiles:** _Create, export and import custom profiles._
+#### ⋮ KEY FEATURES
 
-### Commands:
-- **`/ob`** _Display config window_
+- Provides an organized view of cooldowns and important abilities.
+- Possibility to configure multiple bars of cooldowns.
+- Allows customization of icon size, alignment, custom spells and much more.
 
-<!-- blank line -->
-<br>
-<!-- blank line -->
+#### ⋮ COMMANDS
 
-# 📥 Installation
+<kbd>none</kbd> 
 
-1. Download Latest Release `[.zip, .gz, ...]`:
-	- <a href="https://gitlab.com/Tsoukie/omnibar-3.3.5/-/releases/permalink/latest" target="_blank">`📥 OmniBar-3.3.5`</a>
-	- <a href="https://gitlab.com/Tsoukie/classicapi/-/releases/permalink/latest" target="_blank">`📥 ClassicAPI`</a> **⚠Required**
-2. Extract **both** the downloaded compressed files _(eg. Right-Click -> Extract-All)_.
-3. Navigate within each extracted folder(s) looking for the following: `!!!ClassicAPI` or `OmniBar`.
-4. Move folder(s) named `!!!ClassicAPI` or `OmniBar` to your `Interface\AddOns\` folder.
-5. Re-launch game.
+> [!note] ↳ Still looking for more information?
+> You may find additional details on the [**Wiki**](https://gitlab.com/Tsoukie/omnibar-3.3.5/-/wikis/home).
 
-<!-- blank line -->
-<br>
-<!-- blank line -->
+<br />
 
+<a><img src="https://gitlab.com/-/project/72272686/uploads/178e922d07a273a48ef236ed84c4ae77/teaser.jpg" width="100%" /></a>
 
-# 💬 FAQ
+<br />
 
-> I found a bug!
+# Download & Install
 
-Please 📋 [report the issue](https://gitlab.com/Tsoukie/omnibar-3.3.5/-/issues) with as much detail as possible.
+Latest Release and Changes `[.zip, .tar.gz, ...]`:
 
-<!-- blank line -->
-<br>
-<!-- blank line -->
+#### &nbsp;&nbsp;&nbsp;&nbsp;⇣ <a href="https://gitlab.com/Tsoukie/omnibar-3.3.5/-/releases" target="_blank">OmniBar</a>
 
+#### &nbsp;&nbsp;&nbsp;&nbsp;⇣ <a href="https://gitlab.com/Tsoukie/classicapi/-/releases" target="_blank">ClassicAPI</a> <code>Required</code>
 
-# ❤️ Support & Credit
- 
-If you wish to show some support you can do so [here](https://streamlabs.com/tsoukielol/tip). Tips are completely voluntary and aren't required to download my projects, however, they are _very_ much appreciated. They allow me to devote more time to creating things I truly enjoy. 💜
+Required Client Version: 3.3.5a (Vanilla, TBC, WotLK) | <a href="https://gitlab.com/Tsoukie/omnibar-3.3.5/-/releases" target="_blank">⌕ All Releases</a>
 
-<!-- blank line -->
-<br>
-<!-- blank line -->
-  
-_This_ version is modified and maintained by [Tsoukie](https://gitlab.com/Tsoukie/) and is **not** related or affiliated with any other version.
+<details>
+<summary>Installation Instructions</summary>
 
-### Original AddOn
-**Author:** [Jordon](https://github.com/jordonwow/) (not related/affiliated with this version)
+1. Extract the downloaded compressed files _(eg. Right-Click -> Extract-All)_.
+2. Navigate within each extracted folder(s) looking for the following: `OmniBar` or `!!!ClassicAPI`.
+3. Move folder(s) named `OmniBar` or `!!!ClassicAPI` to your client `Interface\AddOns\` folder.
+4. Re-launch client.
+
+**Directory Structure:**
+<pre>
+Client Directory
+└── Interface
+    └── AddOns
+        └── OmniBar
+            └── OmniBar.toc
+            └── ...
+</pre>
+</details>
+
+<br />
+
+# Reporting Issues
+
+If you experience any problems, please report the issue [here](https://gitlab.com/Tsoukie/omnibar-3.3.5/-/issues). Doing so is the best way for us track and prioritize concerns effectively, giving us time to evaluate and investigate issues. Your contributions are valuable in improving the project for everyone!
+
+<br />
+
+# Acknowledgments
+
+This project is maintained by [**Tsoukie**](https://gitlab.com/Tsoukie/) and is **not** related or affiliated with any other version.
+
+My projects started as personal endeavors, driven by my own interests and passions. While tips are not necessary, they are genuinely appreciated and help in sustaining ongoing development and improvements. If you're feeling generous enough to buy me a coffee, you can do so [**here**](https://streamlabs.com/tsoukielol/tip). 💜
+
+#### ⋮ CONTRIBUTORS
+
+This project is based on <a href="https://www.curseforge.com/wow/addons/omnibar" target="_blank">**OmniBar**</a> by <a href="https://www.curseforge.com/members/jordons/projects" target="_blank">**Jordon**</a>.

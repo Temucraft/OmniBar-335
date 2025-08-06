@@ -1121,7 +1121,7 @@ function OmniBar:SetupOptions()
 			vers = {
 				order = 1,
 				type = "description",
-				name = "|cffffd700 "..L["Version"].."|r "..self.version.string..", |cffffd700Based on OmniBar|r v29\n",
+				name = "|cffffd700 "..L["Version"].."|r "..self.version.string.."|cffffd700, Based on OmniBar|r v29\n",
 				cmdHidden = true
 			},
 			desc = {
