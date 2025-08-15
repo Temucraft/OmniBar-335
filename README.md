@@ -14,7 +14,7 @@
 
 #### ⋮ COMMANDS
 
-<kbd>none</kbd> 
+<kbd>/ob</kbd> 
 
 > [!note] ↳ Still looking for more information?
 > You may find additional details on the [**Wiki**](https://gitlab.com/Tsoukie/omnibar-3.3.5/-/wikis/home).
