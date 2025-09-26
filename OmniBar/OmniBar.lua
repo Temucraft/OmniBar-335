@@ -38,7 +38,6 @@ local IsInGuild = IsInGuild
 local IsInInstance = IsInInstance
 local IsInRaid = IsInRaid
 local IsRatedBattleground = C_PvP.IsRatedBattleground
-local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
 local LibStub = LibStub
 local MAX_CLASSES = MAX_CLASSES
 local NotifyInspect = NotifyInspect
@@ -209,9 +208,9 @@ end
 
 local function GetDefaultCommChannel()
 	if IsInRaid() then
-		return IsInRaid(LE_PARTY_CATEGORY_INSTANCE) and "INSTANCE_CHAT" or "RAID"
+		return "RAID"
 	elseif IsInGroup() then
-		return IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and "INSTANCE_CHAT" or "PARTY"
+		return "PARTY"
 	elseif IsInGuild() then
 		return "GUILD"
 	else
