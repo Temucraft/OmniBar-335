@@ -415,7 +415,7 @@ addon.Cooldowns = {
 
     --]]
 
-    [47750] = { duration = 12, class = "PRIEST", adjust = -4, eventThrottle = true }, -- Penance (Rank 1)
+    [47750] = { duration = 12, class = "PRIEST", adjust = -4, channeled = true }, -- Penance (Rank 1)
         [52983] = { parent = 47750 }, -- Penance (Rank 2)
         [52984] = { parent = 47750 }, -- Penance (Rank 3)
         [52985] = { parent = 47750 }, -- Penance (Rank 4)

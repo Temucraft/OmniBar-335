@@ -30,6 +30,7 @@ local UIParent = UIParent
 local WOW_PROJECT_CLASSIC = WOW_PROJECT_CLASSIC
 local WOW_PROJECT_ID = WOW_PROJECT_ID
 local WOW_PROJECT_MAINLINE = WOW_PROJECT_MAINLINE
+local GetSpellDescription = GetSpellDescription
 local YES = YES
 local format = format
 local nop = nop
